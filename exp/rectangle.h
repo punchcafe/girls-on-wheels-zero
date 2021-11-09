@@ -11,5 +11,4 @@ typedef struct Rectangles {
 } Rectangle;
 
 boolean is_collision(Rectangle * rect_1, Rectangle * rect_2);
-
 #endif
