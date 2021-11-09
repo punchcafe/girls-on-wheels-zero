@@ -6,6 +6,4 @@ char skater_sprite_data [] = {
     0xFF, 0xFF, 0XFF, 0XFF, 0XFF, 0XFF, 0XFF, 0XFF, 0XFF 
 };
 
-#define SKATER_SPRITE_TABLE_POSITION 1
-#define SKATER_SPRITE_POSITION 1
 #endif

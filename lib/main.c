@@ -1,10 +1,15 @@
 #include <gb/gb.h>
 #include <stdio.h>
-#include "./skater.c"
-#include "./assets/skater_sprites.c"
+#include "../include/skater.h"
+
+
+#define SKATER_SPRITE_TABLE_POSITION 1
+#define SKATER_SPRITE_POSITION 1
 
 Skater skater_singleton = {50, 50, 1, 1, 0, 0};
 Skater * skater_s_pointer = &skater_singleton;
+
+extern char skater_sprite_data [];
 
 void initialise_skater_sprite_data()
 {
