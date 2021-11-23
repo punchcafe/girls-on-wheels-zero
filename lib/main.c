@@ -28,16 +28,16 @@ int main()
     SHOW_SPRITES;
     while(1)
     {
+        wait_vbl_done();
         unsigned char input = joypad();
         if(input & J_UP) {
             skater_jump(skater_s_pointer);
         } else if(input & J_RIGHT) {
-            skater_move(skater_s_pointer, 2, 0);
+            skater_move(skater_s_pointer, 1, 0);
         } else if(input & J_DOWN) {
         } else if(input & J_LEFT) {
-            skater_move(skater_s_pointer, -2, 0);
+            skater_move(skater_s_pointer, -1, 0);
         };
-        delay(50);
         render_skater(skater_s_pointer);
     }
     return 0;
