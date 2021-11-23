@@ -1,1 +1,2 @@
 export LCC=/path/to/envrc
+export GCC=/path/to/gcc
