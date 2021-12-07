@@ -4,4 +4,5 @@
 #include "../dynamic_body.h"
 
 void resolve_dynamic_bodies(DynamicBody * body_array, unsigned int number_of_bodies, unsigned int interval);
+
 #endif

@@ -4,7 +4,7 @@
 #define DYNAMIC_BODY_TYPES_TOTAL 1
 
 typedef enum DynamicBodyType {
-    SIMPLE
+    PLAYER, PLATFORM
 } DynamicBodyType ;
 
 #endif
