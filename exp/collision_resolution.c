@@ -14,8 +14,8 @@ struct KinematicBody {
     unsigned short collides_others;
 }
 
-(process_strategy*)(KinematicBody*) get_process_strategy(KinematicBodyType type);
-(collision_strategy*)(KinematicBody*, KinematicBody*) get_collision_strategy(KinematicBodyType self_type, KinematicBodyType other_type);
+(process_strategy*)(KinematicBody*, int duration) get_process_strategy(KinematicBodyType type);
+(collision_strategy*)(KinematicBody*, KinematicBody*, int duration) get_collision_strategy(KinematicBodyType self_type, KinematicBodyType other_type);
 
 /*
 
