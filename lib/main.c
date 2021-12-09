@@ -8,6 +8,13 @@
 #define SKATER_SPRITE_TABLE_POSITION 1
 #define SKATER_SPRITE_POSITION 1
 
+/*
+    Note on collision bodies:
+    Can keep track of skater's last position (could do all, but would be a waste)
+    Hook into the "observable" idea, or just do it on the self process, before anything else.
+    This will allow us to know with more certainty which side a collision has happened from.
+*/
+
 Skater skater_singleton = {50, 50, 1, 1, 0, 0};
 Skater * skater_s_pointer = &skater_singleton;
 

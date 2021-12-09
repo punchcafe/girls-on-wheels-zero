@@ -10,6 +10,11 @@ typedef struct DynamicBody
     int v_x, v_y;
     int f_x, f_y;
     unsigned int width, height;
+    /* 
+      having skater here would allow us to track skaters last position, as part of it's process,
+      without having to do it for all dynamic types. Could also be more generic, and have MOVING_BODY, or something
+      but that is unlikely to be useful, and would probably require allowing for multiple subtypes.
+    */
     DynamicBodyType type;
     void * type_body;
     // use this to skip things for which collisions don't affect them, i.e. blocks
