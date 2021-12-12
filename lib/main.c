@@ -18,7 +18,7 @@
 Skater skater_singleton = {50, 50, 1, 1, 0, 0};
 Skater * skater_s_pointer = &skater_singleton;
 
-DynamicBody bodies [] = {{40, 0, 0, 0, 0, 0, 2, 2, 1, 0x00, 0x01, 0x00}, {80, 0, 0, 0, 0, 0, 2, 2, 1, 0x00, 0x01, 0x00}};
+DynamicBody bodies [] = {{40, 0, 0, 0, 0, 0, 2, 2, 0, 0x00, 0x01, 0x00}, {40, 120, 0, 0, 0, 0, 2, 2, 1, 0x00, 0x00, 0x01}};
 
 extern char skater_sprite_data [];
 

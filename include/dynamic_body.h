@@ -2,7 +2,7 @@
 #define DYNAMIC_BODY_DEFINITION_H
 
 #include "./dynamic_body_type.h"
-
+#include "./rectangle.h"
 
 typedef struct DynamicBody 
 {
@@ -26,6 +26,8 @@ typedef struct DynamicBody
 
 // potentially assume interval is one
 void dynamic_body_process(DynamicBody * body, unsigned short interval);
+
+void dynamic_body_populate_rectangle(DynamicBody * body, Rectangle * rectangle);
 
 void dynamic_body_process_collision(DynamicBody * self, DynamicBody * other, unsigned short interval);
 
