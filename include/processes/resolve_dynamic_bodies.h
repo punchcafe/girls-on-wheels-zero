@@ -3,6 +3,10 @@
 
 #include "../dynamic_body.h"
 
-void resolve_dynamic_bodies(DynamicBody * body_array, unsigned int number_of_bodies, unsigned int interval);
+void resolve_dynamic_bodies(DynamicBody * collidable_body_array, 
+                            unsigned int number_of_bodies, 
+                            DynamicBody * skater_body_array, 
+                            unsigned int number_of_skaters, 
+                            unsigned int interval);
 
 #endif

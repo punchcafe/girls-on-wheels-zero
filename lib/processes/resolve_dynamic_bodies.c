@@ -36,12 +36,17 @@ void apply_forces_and_velocities(DynamicBody * body_array, unsigned int number_o
     }
 }
 
-void resolve_dynamic_bodies(DynamicBody * body_array, unsigned int number_of_bodies, unsigned int interval)
+void resolve_dynamic_bodies(DynamicBody * collidable_body_array, 
+                            unsigned int number_of_bodies, 
+                            DynamicBody * skater_body_array, 
+                            unsigned int number_of_skaters, 
+                            unsigned int interval)
 {
-    // resolve self first force first, then collisions
-    for(int i = 0; i < number_of_bodies; i++)
+    // assume only skaters collide
+
+    for(int i = 0; i < number_of_skaters; i++)
     {
-        DynamicBody * subject_body = &body_array[i];
+        DynamicBody * subject_body = &skater_body_array[i];
         // reset forces
         subject_body->f_x = 0;
         subject_body->f_y = 0;
@@ -49,31 +54,20 @@ void resolve_dynamic_bodies(DynamicBody * body_array, unsigned int number_of_bod
         process_strategy(subject_body);
     }
 
-    for(int i = 0; i < number_of_bodies; i++)
+    for(unsigned short i = 0; i < number_of_skaters; i++)
     {
-        DynamicBody * self_body = &body_array[i];
-        if(self_body->self_collides)
-        {
-            // TODO: check if we can skip to i = j
-            for(int j = 0; j < number_of_bodies; j++)
+        DynamicBody * self_body = &skater_body_array[i];
+            for(unsigned short j = 0; j < number_of_bodies; j++)
             {
-                if(i == j)
+                DynamicBody * other_body = &collidable_body_array[j];
+                dynamic_body_populate_rectangle(self_body, &self_collision_rectangle);
+                dynamic_body_populate_rectangle(other_body, &other_collision_rectangle);
+                if(rectangle_do_rectangles_collide(&self_collision_rectangle, &other_collision_rectangle))
                 {
-                    continue;
-                }
-                DynamicBody * other_body = &body_array[j];
-                if(other_body->collides_others)
-                {
-                    dynamic_body_populate_rectangle(self_body, &self_collision_rectangle);
-                    dynamic_body_populate_rectangle(other_body, &other_collision_rectangle);
-                    if(rectangle_do_rectangles_collide(&self_collision_rectangle, &other_collision_rectangle))
-                    {
-                        void (*collision_strategy)(DynamicBody*, DynamicBody*, unsigned int) = dynamic_body_collision_strategy(self_body->type);
-                        collision_strategy(self_body, other_body, 1);
-                    }
-                }
-            }
-        }
+                    void (*collision_strategy)(DynamicBody*, DynamicBody*, unsigned int) = dynamic_body_collision_strategy(self_body->type);
+                    collision_strategy(self_body, other_body, 1);
+                };
+            };
     }
-    apply_forces_and_velocities(body_array, number_of_bodies, interval);
+    apply_forces_and_velocities(skater_body_array, number_of_skaters, interval);
 }

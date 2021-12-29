@@ -18,13 +18,47 @@
 Skater skater_singleton = {50, 50, 1, 1, 0, 0};
 Skater * skater_s_pointer = &skater_singleton;
 
-DynamicBody bodies [] = {{40, 0, 0, 0, 0, 0, 8, 8, 0, 0x00, 0x01, 0x00}, {40, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01}};
+DynamicBody skater_bodies [] = {{40, 0, 0, 0, 0, 0, 8, 8, 0, 0x00, 0x01, 0x00}};
+DynamicBody collidable_bodies [] = { 
+{40, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x01, 0x01},
+ {70, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x01, 0x01},
+  {100, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+   {130, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+   {40, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+ {70, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+  {100, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+   {130, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+   {40, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+ {70, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+  {100, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+   {130, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+   {40, 0, 0, 0, 0, 0, 8, 8, 0, 0x00, 0x01, 0x00}, 
+{40, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+ {70, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+  {100, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+   {130, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+   {40, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+ {70, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+  {100, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+   {130, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+   {40, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+ {70, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+  {100, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+ {70, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+  {100, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+   {130, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+   {40, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+ {70, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01},
+  {100, 120, 0, 0, 0, 0, 8, 8, 1, 0x00, 0x00, 0x01}};
 
 extern char skater_sprite_data [];
 
 void initialise_skater_sprite_data()
 {
     set_sprite_tile(2, SKATER_SPRITE_TABLE_POSITION);
+    set_sprite_tile(3, SKATER_SPRITE_TABLE_POSITION);
+    set_sprite_tile(4, SKATER_SPRITE_TABLE_POSITION);
+    set_sprite_tile(5, SKATER_SPRITE_TABLE_POSITION);
     set_sprite_data(SKATER_SPRITE_TABLE_POSITION,1,skater_sprite_data);
 }
 
@@ -41,23 +75,12 @@ int main()
     while(1)
     {
         wait_vbl_done();
-
-        /*
-        unsigned char input = joypad();
-        if(input & J_UP) {
-            skater_jump(skater_s_pointer);
-        } else if(input & J_RIGHT) {
-            skater_move(skater_s_pointer, 1, 0);
-        } else if(input & J_DOWN) {
-        } else if(input & J_LEFT) {
-            skater_move(skater_s_pointer, -1, 0);
-        };
-        */
-        render_skater(bodies);
-        move_sprite(2, bodies[1].x, bodies[1].y);
-        
-        resolve_dynamic_bodies(bodies, 2, 1);
-        delay(20);
+        render_skater(skater_bodies);
+        move_sprite(2, collidable_bodies[1].x, collidable_bodies[1].y);
+        move_sprite(3, collidable_bodies[2].x, collidable_bodies[2].y);
+        move_sprite(4, collidable_bodies[3].x, collidable_bodies[3].y);
+        move_sprite(5, collidable_bodies[4].x, collidable_bodies[4].y);
+        resolve_dynamic_bodies(collidable_bodies, 25,skater_bodies ,1, 1);
     }
     return 0;
 }
