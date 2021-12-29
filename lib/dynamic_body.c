@@ -13,11 +13,11 @@ void dynamic_body_populate_rectangle(DynamicBody * body, Rectangle * rectangle)
     return;
 }
 
-void do_gravity(DynamicBody * body){
+void _do_gravity(DynamicBody * body){
     body->f_y = 1;
 }
 
-void do_player(DynamicBody * body){
+void _do_player(DynamicBody * body){
     unsigned char input = joypad();
     if(input & J_RIGHT) {
         // TODO:  use calculated force impulse instead with interval
@@ -27,25 +27,30 @@ void do_player(DynamicBody * body){
     } else {
         body->v_x = 0;
     };
-    do_gravity(body);
+    _do_gravity(body);
 }
 
-void do_nothing(DynamicBody * body){
+void _do_nothing(DynamicBody * body){
 }
 
 void _collision_stop_body(DynamicBody* self_body, DynamicBody* other, unsigned short interval)
 {
+    unsigned char input = joypad();
     self_body->f_y = 0;
     self_body->v_y = 0;
+    if(input & J_A)
+    {
+        self_body->f_y = -10;
+    }
 }
 
 void (*dynamic_body_process_strategy(DynamicBody* body, unsigned short interval))(DynamicBodyType type)
 {
     if(type == PLAYER)
     {
-        return &do_player;
+        return &_do_player;
     } else {
-        return &do_nothing;
+        return &_do_nothing;
     }
 }
 
