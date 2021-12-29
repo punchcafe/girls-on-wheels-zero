@@ -24,12 +24,13 @@ typedef struct DynamicBody
     unsigned short collides_others;
 } DynamicBody;
 
-// potentially assume interval is one
-void dynamic_body_process(DynamicBody * body, unsigned short interval);
+// TODO: make generic by having a config struct which is handled generically. Need to figure out 
+// how to avoid having to modify the Type enum to do this first though.
+void (*dynamic_body_process_strategy(DynamicBody* body, unsigned short interval))(DynamicBodyType type);
+
+void (*dynamic_body_collision_strategy(DynamicBody* self, DynamicBody* other, unsigned short interval))(DynamicBodyType self_type);
 
 void dynamic_body_populate_rectangle(DynamicBody * body, Rectangle * rectangle);
-
-void dynamic_body_process_collision(DynamicBody * self, DynamicBody * other, unsigned short interval);
 
 // what is pragma?
 

@@ -11,38 +11,6 @@
 Rectangle self_collision_rectangle;
 Rectangle other_collision_rectangle;
 
-void do_gravity(DynamicBody * body){
-    body->f_y = 1;
-}
-
-void do_player(DynamicBody * body){
-    unsigned char input = joypad();
-    if(input & J_RIGHT) {
-        // TODO:  use calculated force impulse instead with interval
-        body->v_x = 3;
-    } else if(input & J_LEFT) {
-        body->v_x = -3;
-    } else {
-        body->v_x = 0;
-    };
-    do_gravity(body);
-}
-
-void do_nothing(DynamicBody * body){
-}
-
-// TODO: use actual return type
-// TODO: user interval
-void (*get_process_strategy(DynamicBody* body))(DynamicBodyType type)
-{
-    if(type == PLAYER)
-    {
-        return &do_player;
-    } else {
-        return &do_nothing;
-    }
-}
-
 int clamp(int value, int max, int min)
 {
     if(value < min)
@@ -77,7 +45,7 @@ void resolve_dynamic_bodies(DynamicBody * body_array, unsigned int number_of_bod
         // reset forces
         subject_body->f_x = 0;
         subject_body->f_y = 0;
-        void (*process_strategy)(DynamicBody*) = get_process_strategy(subject_body->type);
+        void (*process_strategy)(DynamicBody*) = dynamic_body_process_strategy(subject_body->type);
         process_strategy(subject_body);
     }
 
@@ -100,9 +68,8 @@ void resolve_dynamic_bodies(DynamicBody * body_array, unsigned int number_of_bod
                     dynamic_body_populate_rectangle(other_body, &other_collision_rectangle);
                     if(rectangle_do_rectangles_collide(&self_collision_rectangle, &other_collision_rectangle))
                     {
-                        // TODO: use actual implementation from dynamic body context, using impulse
-                        self_body->f_y = 0;
-                        self_body->v_y = 0;
+                        void (*collision_strategy)(DynamicBody*, DynamicBody*, unsigned int) = dynamic_body_collision_strategy(self_body->type);
+                        collision_strategy(self_body, other_body, 1);
                     }
                 }
             }
